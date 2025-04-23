@@ -19,7 +19,10 @@ This service is responsible for managing the order of tickets. It provides endpo
 Gradle commands:
  [] to fix the issue with gradle runs
 
-* Run `./gradlew run` to build and run the application.
+* Run `./gradlew bootRun` to run the application.
 * Run `./gradlew build` to only build the application.
 * Run `./gradlew check` to run all checks, including tests.
 * Run `./gradlew clean` to clean all build outputs.
+
+* Run `./gradlew :inventoryservice:bootRun` to run the inventory service
+
