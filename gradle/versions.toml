@@ -1,0 +1,21 @@
+[versions]
+kotlin      = "2.1.20"
+spring-boot = "3.4.4"
+spring-cloud= "2024.0.1"
+sb-admin    = "3.2.5"
+config      = "4.1.2"
+
+[libraries]
+boot-web      = { module = "org.springframework.boot:spring-boot-starter-web",version.ref = "spring-boot" }
+boot-security = { module = "org.springframework.boot:spring-boot-starter-security",version.ref = "spring-boot" }
+boot-jpa      = { module = "org.springframework.boot:spring-boot-starter-data-jpa",version.ref = "spring-boot" }
+boot-kafka    = { module = "org.springframework.kafka:spring-kafka",version = "3.2.3" }
+config-server = { module = "org.springframework.cloud:spring-cloud-config-server",version.ref = "config" }
+boot-admin-s  = { module = "de.codecentric:spring-boot-admin-starter-server",version.ref = "sb-admin" }
+boot-admin-c  = { module = "de.codecentric:spring-boot-admin-starter-client",version.ref = "sb-admin" }
+
+[plugins]
+kotlin-jvm         = { id = "org.jetbrains.kotlin.jvm",             version.ref = "kotlin" }
+kotlin-spring      = { id = "org.jetbrains.kotlin.plugin.spring",   version.ref = "kotlin" }
+spring-boot        = { id = "org.springframework.boot",             version.ref = "spring-boot" }
+spring-dependency  = { id = "io.spring.dependency-management",      version = "1.1.5" }
