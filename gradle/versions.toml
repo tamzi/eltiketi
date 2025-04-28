@@ -1,21 +1,57 @@
 [versions]
-kotlin      = "2.1.20"
+kotlin = "2.1.20"
 spring-boot = "3.4.4"
 spring-cloud= "2024.0.1"
-sb-admin    = "3.2.5"
-config      = "4.1.2"
+sb-admin = "3.2.5"
+config = "4.1.2"
+# Added versions from inventory-service
+jackson-kotlin = "2.17.1"
+flyway = "10.15.2"
+lombok = "1.18.34"
+mysql-connector = "8.4.0"
+junit-platform = "1.11.0"
+h2 = "2.2.224"
+spring-kafka = "3.2.3"
+kotlin-test = "2.1.20"
 
 [libraries]
-boot-web      = { module = "org.springframework.boot:spring-boot-starter-web",version.ref = "spring-boot" }
-boot-security = { module = "org.springframework.boot:spring-boot-starter-security",version.ref = "spring-boot" }
-boot-jpa      = { module = "org.springframework.boot:spring-boot-starter-data-jpa",version.ref = "spring-boot" }
-boot-kafka    = { module = "org.springframework.kafka:spring-kafka",version = "3.2.3" }
-config-server = { module = "org.springframework.cloud:spring-cloud-config-server",version.ref = "config" }
-boot-admin-s  = { module = "de.codecentric:spring-boot-admin-starter-server",version.ref = "sb-admin" }
-boot-admin-c  = { module = "de.codecentric:spring-boot-admin-starter-client",version.ref = "sb-admin" }
+# Spring Boot Starters
+boot-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "spring-boot" }
+boot-security = { module = "org.springframework.boot:spring-boot-starter-security", version.ref = "spring-boot" }
+boot-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa", version.ref = "spring-boot" }
+boot-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator", version.ref = "spring-boot" }
+boot-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "spring-boot" }
+
+# Spring Cloud & Admin
+config-server = { module = "org.springframework.cloud:spring-cloud-config-server", version.ref = "config" }
+boot-admin-s = { module = "de.codecentric:spring-boot-admin-starter-server", version.ref = "sb-admin" }
+boot-admin-c = { module = "de.codecentric:spring-boot-admin-starter-client", version.ref = "sb-admin" }
+
+# Kafka
+kafka = { module = "org.springframework.kafka:spring-kafka", version.ref = "spring-kafka" }
+
+# Kotlin
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect" }
+kotlin-test-junit5 = { module = "org.jetbrains.kotlin:kotlin-test-junit5", version.ref = "kotlin-test" }
+
+# Jackson
+jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version.ref = "jackson-kotlin" }
+
+# Database & Migration
+flyway-core = { module = "org.flywaydb:flyway-core", version.ref = "flyway" }
+flyway-mysql = { module = "org.flywaydb:flyway-mysql", version.ref = "flyway" }
+mysql-connector = { module = "com.mysql:mysql-connector-j", version.ref = "mysql-connector" }
+h2 = { module = "com.h2database:h2", version.ref = "h2" }
+
+# Lombok
+lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
+
+# Testing
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher", version.ref = "junit-platform" }
 
 [plugins]
-kotlin-jvm         = { id = "org.jetbrains.kotlin.jvm",             version.ref = "kotlin" }
-kotlin-spring      = { id = "org.jetbrains.kotlin.plugin.spring",   version.ref = "kotlin" }
-spring-boot        = { id = "org.springframework.boot",             version.ref = "spring-boot" }
-spring-dependency  = { id = "io.spring.dependency-management",      version = "1.1.5" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
+kotlin-jpa = { id = "org.jetbrains.kotlin.plugin.jpa", version.ref = "kotlin" }
+spring-boot= { id = "org.springframework.boot", version.ref = "spring-boot" }
+spring-dependency = { id = "io.spring.dependency-management", version = "1.1.7" }
