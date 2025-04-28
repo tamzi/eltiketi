@@ -61,3 +61,80 @@ Notification Service listens to OrderCreated event from Kafka.
 **Step 16: User Receives Ticket**
 User receives confirmed e-ticket notification via email or SMS.
 
+
+
+## Data Flow: Ticket Purchase
+
+
+```mermaid
+sequenceDiagram
+    %% User Journey for Ticket Purchase
+    %% This diagram illustrates the flow of events during a ticket purchase process in the elTiketi system.
+
+    actor User
+    participant ClientApp
+    participant Keycloak
+    participant API_Gateway
+    participant BookingService
+    participant InventoryService
+    participant PaymentGateway
+    participant OrderService
+    participant Kafka
+    participant NotificationService
+    participant PostgreSQL
+
+%% Step 1
+    User->>ClientApp: 1. Select event tickets
+
+%% Step 2
+    ClientApp->>Keycloak: 2. Authenticate User
+    Keycloak-->>ClientApp: JWT Token issued
+
+%% Step 3
+    ClientApp->>API_Gateway: 3. Request reservation (JWT)
+
+%% Step 4
+    API_Gateway->>Keycloak: 4. Validate JWT
+    Keycloak-->>API_Gateway: JWT validation success
+
+%% Step 5
+    API_Gateway->>BookingService: 5. Forward reservation request
+
+%% Step 6
+    BookingService->>InventoryService: 6. Check ticket availability
+
+%% Step 7
+    InventoryService-->>BookingService: 7. Confirm availability
+
+%% Step 8
+    BookingService->>PostgreSQL: 8. Temporarily reserve tickets
+    BookingService->>Kafka: Emit BookingCreated event
+
+%% Step 9
+    ClientApp->>PaymentGateway: 9. Initiate payment
+
+%% Step 10
+    PaymentGateway-->>ClientApp: 10. Payment success confirmation
+
+%% Step 11
+    ClientApp->>API_Gateway: 11. Confirm payment success
+
+%% Step 12
+    API_Gateway->>OrderService: 12. Forward order confirmation request
+
+%% Step 13
+    OrderService->>PostgreSQL: 13. Mark order CONFIRMED
+    OrderService->>Kafka: Emit OrderCreated event
+
+%% Step 14
+    Kafka->>InventoryService: 14. Consume OrderCreated event
+    InventoryService->>PostgreSQL: Update available ticket count
+
+%% Step 15
+    Kafka->>NotificationService: 15. Consume OrderCreated event
+    NotificationService->>User: Send confirmation & QR code via Email/SMS
+
+%% Step 16
+    User->>User: 16. Receive confirmed e-ticket
+
+```
